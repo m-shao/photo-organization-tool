@@ -94,15 +94,33 @@
 #
 # app.exec()
 
+
 # Version 1: Widgets
 
-from PySide6.QtWidgets import QApplication
-from rock_widget import RockWidget
-import sys
+# from PySide6.QtWidgets import QApplication
+# from rock_widget import RockWidget
+# import sys
+#
+# app = QApplication(sys.argv)
+#
+# window = RockWidget()
+# window.show()
+#
+# app.exec()
 
-app = QApplication(sys.argv)
 
-window = RockWidget()
-window.show()
+# Version 1: QMainWindow
 
-app.exec()
+# from PySide6.QtWidgets import QApplication
+# from main_window import MainWindow
+#
+# import sys
+#
+# app = QApplication(sys.argv)
+#
+# window = MainWindow(app)
+# window.show()
+#
+# app.exec()
+
+# Version 1: QMessageBox
