@@ -8,6 +8,7 @@ class Widget(QWidget):
         super().__init__()
 
         self.setWindowTitle("Images with QLabel")
+        self.setMinimumSize(800, 800)
 
         image_label = QLabel()
 
