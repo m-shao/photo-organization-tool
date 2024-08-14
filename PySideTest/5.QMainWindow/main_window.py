@@ -43,7 +43,7 @@ class MainWindow(QMainWindow):
         action1.triggered.connect(self.toolbar_button_click)
         toolbar.addAction(action1)
 
-        action2 = QAction(QIcon("../start.png"), "Some Other Action", self)
+        action2 = QAction(QIcon("../10.Images with QLabel/images/start.png"), "Some Other Action", self)
         action2.setStatusTip("Status message for another action")
         # action2.setCheckable(True)
         action2.triggered.connect(self.toolbar_button_click)
