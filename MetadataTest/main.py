@@ -1,6 +1,11 @@
 import exiftool
 import time
 
+def read_metadata(base_path, file_path, subject):
+    with exiftool.ExifToolHelper() as et:
+        metadata = et.get_metadata(base_path + "\\" + file_path)
+        return metadata.get(subject)
+
 def set_metadata(base_path, file_path, subject, new_value):
     with exiftool.ExifTool() as et:
         result = et.execute(f"-{subject}={new_value}".encode('utf-8'), b"-overwrite_original", (base_path + "\\" + file_path).encode('utf-8'))
