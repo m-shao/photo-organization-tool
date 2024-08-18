@@ -1,5 +1,6 @@
-from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout
+from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QSizePolicy
 from PySide6.QtGui import QPixmap, QTransform, QImage
+import PySide6.QtCore as Qt
 
 from metadata.metadata import read_metadata
 
@@ -10,13 +11,15 @@ class ImageDisplayWidget(QWidget):
         self.size = (read_metadata(current_image_path, "File:ImageWidth", "800"),
                      read_metadata(current_image_path, "File:ImageHeight", "600"))
 
+        # create container that holds the images with a darker background
         container = QWidget()
-        container.setFixedSize(800, 600)
-        container.setStyleSheet("background-color:#282828")
-        container.setContentsMargins(100, 25, 100, 25)
+        container.setFixedSize(1000, 800)
+        container.setStyleSheet("background-color:#282828;")
 
+        # create the image
         image = QImage(current_image_path)
 
+        # read image orientation from exif data and set the rotation angle depending
         exif_orientation = int(read_metadata(current_image_path, "EXIF:Orientation"))
         rotation_value = 0
         image_aspect = self.size[1] / self.size[0]
@@ -32,28 +35,29 @@ class ImageDisplayWidget(QWidget):
         rotated_image = image.transformed(QTransform().rotate(rotation_value))
         rotated_image_pixmap = QPixmap.fromImage(rotated_image)
 
+        # create actual image label(display)
         image_label = QLabel()
         image_label.setPixmap(rotated_image_pixmap)
         image_label.setScaledContents(True)
-        image_label.setMaximumSize(container.width(), container.height())
+        # image_label.setMaximumSize(container.width(), container.height())
 
-        print(image_aspect)
-
+        # set image to fit in the bounding box despite aspect ratio
+        shrink_value = 0.9
         if image_aspect > 1:
-            print(container.height(), int(container.height()*image_aspect))
-            image_label.setFixedHeight(container.height())
-            image_label.setFixedWidth(int(container.height()/image_aspect))
+            image_label.setFixedHeight(int(container.height() * shrink_value))
+            image_label.setFixedWidth(int(container.height()/image_aspect * shrink_value) )
         else:
-            print(container.width(), int(container.width() * image_aspect))
-            image_label.setFixedWidth(container.width())
-            image_label.setFixedHeight(int(container.width() * image_aspect))
+            image_label.setFixedWidth(int(container.width() * shrink_value))
+            image_label.setFixedHeight(int(container.width() * image_aspect * shrink_value) )
 
         image_layout = QVBoxLayout()
         image_layout.addWidget(image_label)
+        image_layout.setAlignment(Qt.Qt.AlignmentFlag.AlignCenter)
+        # image_layout.setContentsMargins(100, 25, 100, 25)
 
         container.setLayout(image_layout)
 
         image_container_layout = QVBoxLayout()
         image_container_layout.addWidget(container)
 
-        self.setLayout(image_layout)
+        self.setLayout(image_container_layout)

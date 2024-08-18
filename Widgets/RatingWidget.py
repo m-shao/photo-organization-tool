@@ -31,8 +31,8 @@ class StarRatingWidget(QWidget):
         self.setStyleSheet("background-color: #262626;")
         self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.layout = QHBoxLayout(self)
-        self.layout.setSpacing(4)
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.setSpacing(5)
+        self.layout.setContentsMargins(5, 1, 5, 1)
 
         self.stars = []
         for i in range(5):

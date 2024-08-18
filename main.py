@@ -53,9 +53,9 @@ class MainWindow(QMainWindow):
 
         rating_bar = StarRatingWidget()
 
-        star_widget_container = QWidget()
         star_layout = QHBoxLayout()
         star_layout.addWidget(rating_bar)
+        star_widget_container = QWidget()
         star_widget_container.setLayout(star_layout)
         star_widget_container.setStyleSheet(f"background-color:#282828; border-radius:{rating_bar.height()}")
         star_widget_container.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -72,7 +72,7 @@ class MainWindow(QMainWindow):
 
         main_layout.addWidget(image_display)
         main_layout.addLayout(rating_caption_layout)
-        main_layout.setSpacing(8)
+        main_layout.setSpacing(4)
 
         self.setLayout(main_layout)
 
