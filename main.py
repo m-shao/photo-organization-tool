@@ -9,7 +9,7 @@ from Widgets.ImageDisplayWidget import ImageDisplayWidget
 import sys
 import os
 
-current_image = "assets/ROS.JPG"
+current_image = "assets/Ben.JPG"
 
 current_dir = os.getcwd()
 current_image_path = os.path.join(current_dir, current_image)
@@ -58,6 +58,7 @@ class MainWindow(QMainWindow):
         star_layout.addWidget(rating_bar)
         star_widget_container.setLayout(star_layout)
         star_widget_container.setStyleSheet(f"background-color:#282828; border-radius:{rating_bar.height()}")
+        star_widget_container.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
 
         caption_editor = CaptionEditorWidget(current_image_path, rating_bar.height())
 

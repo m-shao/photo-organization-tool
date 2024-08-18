@@ -19,9 +19,15 @@ class ImageDisplayWidget(QWidget):
 
         exif_orientation = int(read_metadata(current_image_path, "EXIF:Orientation"))
         rotation_value = 0
-        if exif_orientation == 3: rotation_value = 180
-        elif exif_orientation == 6: rotation_value = 90
-        elif exif_orientation == 8: rotation_value = 270
+        image_aspect = self.size[1] / self.size[0]
+        if exif_orientation == 3:
+            rotation_value = 180
+        elif exif_orientation == 6:
+            rotation_value = 90
+            image_aspect = self.size[0] / self.size[1]
+        elif exif_orientation == 8:
+            rotation_value = 270
+            image_aspect = self.size[0] / self.size[1]
 
         rotated_image = image.transformed(QTransform().rotate(rotation_value))
         rotated_image_pixmap = QPixmap.fromImage(rotated_image)
@@ -30,12 +36,15 @@ class ImageDisplayWidget(QWidget):
         image_label.setPixmap(rotated_image_pixmap)
         image_label.setScaledContents(True)
         image_label.setMaximumSize(container.width(), container.height())
-        image_aspect = self.size[1]/self.size[0]
+
+        print(image_aspect)
 
         if image_aspect > 1:
+            print(container.height(), int(container.height()*image_aspect))
             image_label.setFixedHeight(container.height())
-            image_label.setFixedWidth(int(container.height()*image_aspect))
+            image_label.setFixedWidth(int(container.height()/image_aspect))
         else:
+            print(container.width(), int(container.width() * image_aspect))
             image_label.setFixedWidth(container.width())
             image_label.setFixedHeight(int(container.width() * image_aspect))
 

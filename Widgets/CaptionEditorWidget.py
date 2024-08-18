@@ -14,7 +14,7 @@ class CaptionEditorWidget(QWidget):
         self.caption_box = QLineEdit()
         self.caption_box.setText(current_image_caption)
         self.caption_box.setFixedHeight(rating_bar_height*2 - 4)
-        self.caption_box.setTextMargins(4, 2, 0, 2)
+        self.caption_box.setTextMargins(4, 0, 0, 0)
 
         caption_submit_button = QPushButton("Confirm")
         caption_submit_button.setFixedHeight(rating_bar_height*2)
