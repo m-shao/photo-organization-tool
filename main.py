@@ -4,14 +4,16 @@ from PySide6.QtGui import QAction, QIcon, QPalette, QColor, QPixmap
 
 from Widgets.RatingWidget import StarRatingWidget
 from Widgets.CaptionEditorWidget import CaptionEditorWidget
+from Widgets.ImageDisplayWidget import ImageDisplayWidget
 
 import sys
 import os
 
-current_image = "assets/rando.JPG"
+current_image = "assets/ROS.JPG"
 
 current_dir = os.getcwd()
 current_image_path = os.path.join(current_dir, current_image)
+
 
 class MainWindow(QMainWindow):
     def __init__(self, app):
@@ -63,14 +65,11 @@ class MainWindow(QMainWindow):
         rating_caption_layout.addWidget(star_widget_container, 1)
         rating_caption_layout.addWidget(caption_editor, 5)
 
-        image = QLabel()
-        image.setPixmap(QPixmap(current_image_path))
-        image.setScaledContents(True)
-        image.setMaximumSize(800, 600)
+        image_display = ImageDisplayWidget(current_image_path)
 
         # image.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
 
-        main_layout.addWidget(image)
+        main_layout.addWidget(image_display)
         main_layout.addLayout(rating_caption_layout)
         main_layout.setSpacing(8)
 

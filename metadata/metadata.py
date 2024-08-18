@@ -20,5 +20,10 @@ def set_metadata(file_path, subject, new_value):
     print(result)
     return result
 
+
 if __name__ == "__main__":
-    set_metadata(r"C:\Users\drago\Desktop\Python Projects\photo-organization-tool\assets/rando.JPG", "EXIF:XPComment", "This is new")
+    with exiftool.ExifToolHelper() as et:
+        metadata = et.get_metadata(r"C:\Users\drago\Desktop\Python Projects\photo-organization-tool\assets\ROS.JPG")[0]
+        print(metadata)
+
+    # set_metadata(r"C:\Users\drago\Desktop\Python Projects\photo-organization-tool\assets/rando.JPG", "EXIF:XPComment", "This is new")
