@@ -51,7 +51,7 @@ class MainWindow(QMainWindow):
         central_widget = QWidget()
         central_widget.setLayout(main_layout)
 
-        rating_bar = StarRatingWidget()
+        rating_bar = StarRatingWidget(current_image_path)
 
         star_layout = QHBoxLayout()
         star_layout.addWidget(rating_bar)
